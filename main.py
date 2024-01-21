@@ -3,7 +3,7 @@ import sys
 from_idx = sys.argv[1]
 to_idx = sys.argv[2]
 
-file = open("text.txt")
+file = open("database.txt")
 # "w" write / creating a new file / overwriting , "r" read , "f" file , "a" append / save
 # an example how to do it
 # # file = open("test.txt")
@@ -19,19 +19,22 @@ def database():
             print("Exiting the program...")
             break
         elif action == "1":
-            print(balance)
+            print("balance: ")
+            with open("database.txt") as f:
+                for row in file:
+                    print(row)
         elif action == "2":
-            with open("text.txt", "a") as f:
+            with open("database.txt", "a") as f:
                 product_name = input("Enter the products name: ")
-                if product_name not in library:
-                    print(f"{product_name} | not found in the library")
-                else:
-                    product_name = library[product_name]["product_name"]
+                if product_name in library:
+                    library = product_name[product_name]["product_name"]
                     print(f"{product_name} is at the warehouse")
-                f.write(f"{product_name}")
+                    f.write(f"{product_name}")
+                else:
+                    print(f"{product_name} | not found in the library")
         elif action == "3":
             print("Get history from 2 indices")
-            with open("text.txt") as f:
+            with open("database.txt") as f:
                 rows = f.readlines()
             for row in rows:
                 if row.strip().startswith(product_name):
